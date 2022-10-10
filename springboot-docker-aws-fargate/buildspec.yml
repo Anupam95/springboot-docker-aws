@@ -2,6 +2,9 @@ version: 0.2
 #docker login --username AWS --password-stdin 1913884437279.dkr.ecr.us-east-1.amazonaws.com/springboot-docker-repo
 
 phases:
+  install:
+    commands:
+      - mvn install
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -10,7 +13,6 @@ phases:
       - REPOSITORY_URI=913884437279.dkr.ecr.us-east-1.amazonaws.com/springboot-docker-repo
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
-      - ./mvnw package && java -jar target/springboot-docker-aws-fargate.jar
   build:
     commands:
       - echo Build started on `date`
