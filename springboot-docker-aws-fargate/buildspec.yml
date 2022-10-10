@@ -4,7 +4,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - mvn install
+      - mvn -f springboot-docker-aws-fargate/ install
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
